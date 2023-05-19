@@ -26,6 +26,7 @@ async function run() {
     await client.connect();
     const toyCollection = client.db('Toy-Marketplace').collection('toys');
     const blogCollection = client.db('Toy-Marketplace').collection('blog');
+    const AllToyCollection = client.db('Toy-Marketplace').collection('All-toy');
 
     app.get('/toys', async(req,res)=>{
       const cursor = toyCollection.find();
@@ -34,6 +35,11 @@ async function run() {
     })
     app.get('/blog', async(req,res)=>{
       const cursor = blogCollection.find();
+      const result = await cursor.toArray()
+      res.send(result);
+    })
+    app.get('/allToy', async(req,res)=>{
+      const cursor = AllToyCollection.find();
       const result = await cursor.toArray()
       res.send(result);
     })
